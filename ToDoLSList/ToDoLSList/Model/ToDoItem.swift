@@ -47,4 +47,8 @@ class ToDoItem {
         subItems.append(subItem)
     }
     
+    func removeSubItem(index: Int) {
+        subItems.remove(at: index)
+    }
+    
 }

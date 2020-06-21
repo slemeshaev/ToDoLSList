@@ -33,10 +33,33 @@ class ToDoListViewController: UITableViewController {
     }
 
     @IBAction func pushAction(_ sender: UIBarButtonItem) {
-        let newItem = ToDoItem(nameTask: "New item" + String(toDoCurrentItem!.subItems.count))
-        toDoCurrentItem?.addSubItem(subItem: newItem)
-        tableView.reloadData()
-        saveData()
+        
+        let alert = UIAlertController(title: "Добавить новую задачу", message: "", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addTextField { (textField) in
+            textField.placeholder = "Сделать задачу"
+        }
+        
+        let alertActionCreate = UIAlertAction(title: "Создать", style: UIAlertAction.Style.default) { (alertAction) in
+            
+            if alert.textFields![0].text != "" {
+                let newItem = ToDoItem(nameTask: alert.textFields![0].text!)
+                
+                self.toDoCurrentItem?.addSubItem(subItem: newItem)
+                self.tableView.reloadData()
+                saveData()
+            }
+        }
+        
+        let alertActionCancel = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.cancel) { (alert) in
+            
+        }
+        
+        alert.addAction(alertActionCreate)
+        alert.addAction(alertActionCancel)
+        
+        present(alert, animated: true, completion: nil)
+
     }
     
     
@@ -49,25 +72,25 @@ class ToDoListViewController: UITableViewController {
         return cell
     }
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            toDoCurrentItem?.removeSubItem(index: indexPath.row)
+            saveData()
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
