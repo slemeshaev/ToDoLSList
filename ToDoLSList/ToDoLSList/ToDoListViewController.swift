@@ -18,6 +18,14 @@ class ToDoListViewController: UITableViewController {
         if toDoCurrentItem == nil {
             toDoCurrentItem = rootItem
         }
+        
+        navigationItem.title = toDoCurrentItem?.nameTask
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -66,8 +74,14 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        let itemForCell = toDoCurrentItem?.subItems[indexPath.row]
-        cell.textLabel?.text = itemForCell?.nameTask
+        let itemForCell = toDoCurrentItem!.subItems[indexPath.row]
+        cell.textLabel?.text = itemForCell.nameTask
+        
+        if itemForCell.subItems.count != 0 {
+            cell.detailTextLabel?.text = String(itemForCell.subItems.count) + " подзадачи"
+        } else {
+            cell.detailTextLabel?.text = ""
+        }
         
         return cell
     }
@@ -90,6 +104,15 @@ class ToDoListViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let subItem = toDoCurrentItem?.subItems[indexPath.row]
+        
+        let toDoListVC = storyboard?.instantiateViewController(withIdentifier: "todoSID") as! ToDoListViewController
+        toDoListVC.toDoCurrentItem = subItem
+        
+        navigationController?.pushViewController(toDoListVC, animated: true)
     }
 
     /*
