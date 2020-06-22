@@ -20,6 +20,49 @@ class ToDoListViewController: UITableViewController {
         }
         
         navigationItem.title = toDoCurrentItem?.nameTask
+        
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPressGestureRecognizer.minimumPressDuration = 1
+        tableView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    @objc func handleLongPress(longPress: UILongPressGestureRecognizer) {
+        
+        let pointOfTouch = longPress.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: pointOfTouch)
+        
+        if longPress.state == .began {
+            if let indexPath = indexPath {
+                let toDoItem = toDoCurrentItem?.subItems[indexPath.row]
+                
+                let alert = UIAlertController(title: "Редактировать задачу", message: "", preferredStyle: UIAlertController.Style.alert)
+                
+                alert.addTextField { (textField) in
+                    textField.placeholder = "Сделать задачу"
+                    textField.text = toDoItem?.nameTask
+                }
+                
+                let alertActionUpdate = UIAlertAction(title: "Обновить", style: UIAlertAction.Style.default) { (alertAction) in
+                    
+                    if alert.textFields![0].text != "" {
+                        toDoItem?.nameTask = alert.textFields![0].text!
+                        
+                        self.tableView.reloadData()
+                        saveData()
+                    }
+                }
+                
+                let alertActionCancel = UIAlertAction(title: "Отмена", style: UIAlertAction.Style.cancel) { (alert) in
+                    
+                }
+                
+                alert.addAction(alertActionUpdate)
+                alert.addAction(alertActionCancel)
+                
+                present(alert, animated: true, completion: nil)
+            }
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,17 +115,10 @@ class ToDoListViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ToDoViewCell
 
         let itemForCell = toDoCurrentItem!.subItems[indexPath.row]
-        cell.textLabel?.text = itemForCell.nameTask
-        
-        if itemForCell.subItems.count != 0 {
-            cell.detailTextLabel?.text = String(itemForCell.subItems.count) + " подзадачи"
-        } else {
-            cell.detailTextLabel?.text = ""
-        }
-        
+        cell.initCell(toDo: itemForCell)
         return cell
     }
 

@@ -15,6 +15,38 @@ class ToDoItem {
     
     var subItems: [ToDoItem]
     
+    var subItemsText: String {
+        
+        if subItems.count == 0 {
+            return ""
+        }
+        
+        var completedToDoCount: Int = 0
+        for todo in subItems {
+            if todo.isCompleted {
+                completedToDoCount += 1
+            }
+        }
+        
+        if completedToDoCount == 0 {
+            return String(subItems.count) + " подзадач"
+        }
+        else {
+            return String(subItems.count) + " подзадач / " + String(completedToDoCount) + "выполнено"
+        }
+        
+    }
+    
+    var countUncompletedSubTask: Int {
+        var uncompletedToDoCount: Int = 0
+        for todo in subItems {
+            if !todo.isCompleted {
+                uncompletedToDoCount += 1
+            }
+        }
+        return uncompletedToDoCount
+    }
+    
     init(nameTask: String) {
         self.nameTask = nameTask
         self.isCompleted = false
@@ -49,6 +81,10 @@ class ToDoItem {
     
     func removeSubItem(index: Int) {
         subItems.remove(at: index)
+    }
+    
+    func changeState() {
+        isCompleted = !isCompleted
     }
     
 }

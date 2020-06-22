@@ -28,7 +28,9 @@ func loadData() {
 
 // сохранение данных
 func saveData() {
-    rootItem?.dictionary.write(toFile: pathForSaveData, atomically: true)
+    if let rootItem = rootItem {
+        rootItem.dictionary.write(toFile: pathForSaveData, atomically: true)
+    }
 }
     
 

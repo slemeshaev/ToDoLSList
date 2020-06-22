@@ -15,29 +15,64 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="ipM-c5-95r" detailTextLabel="gSy-7z-x5M" rowHeight="70" style="IBUITableViewCellStyleSubtitle" id="Gah-wT-AYa">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="70" id="Gah-wT-AYa" customClass="ToDoViewCell" customModule="ToDoLSList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gah-wT-AYa" id="2pS-NW-YQ5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ipM-c5-95r">
-                                            <rect key="frame" x="16" y="15" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gSy-7z-x5M">
-                                            <rect key="frame" x="16" y="38.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="bz1-dn-Fss">
+                                            <rect key="frame" x="75" y="10" width="285" height="50"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ToDo Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMO-ga-dIl">
+                                                    <rect key="frame" x="0.0" y="0.0" width="285" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 SubItems / 1 Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALU-p1-jdF">
+                                                    <rect key="frame" x="0.0" y="29.5" width="285" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ZMO-ga-dIl" firstAttribute="top" secondItem="bz1-dn-Fss" secondAttribute="top" id="6p9-yE-S56"/>
+                                                <constraint firstAttribute="trailing" secondItem="ALU-p1-jdF" secondAttribute="trailing" id="6uX-Uy-jDc"/>
+                                                <constraint firstItem="ALU-p1-jdF" firstAttribute="leading" secondItem="bz1-dn-Fss" secondAttribute="leading" id="Dse-7c-s4Y"/>
+                                                <constraint firstItem="ZMO-ga-dIl" firstAttribute="leading" secondItem="bz1-dn-Fss" secondAttribute="leading" id="TDF-he-EiZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="ALU-p1-jdF" secondAttribute="bottom" id="mHA-A9-GPI"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZMO-ga-dIl" secondAttribute="trailing" id="ugq-0J-OsD"/>
+                                            </constraints>
+                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pad-cX-p4H">
+                                            <rect key="frame" x="15" y="12.5" width="45" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="Kq4-LV-7fy"/>
+                                                <constraint firstAttribute="height" constant="45" id="WXm-3N-uDE"/>
+                                            </constraints>
+                                            <state key="normal" image="checkmark.circle" catalog="system"/>
+                                            <connections>
+                                                <action selector="pushButtonCheck:" destination="Gah-wT-AYa" eventType="touchUpInside" id="985-fI-TNO"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Pad-cX-p4H" firstAttribute="centerY" secondItem="2pS-NW-YQ5" secondAttribute="centerY" id="2rZ-fE-t3R"/>
+                                        <constraint firstAttribute="trailing" secondItem="bz1-dn-Fss" secondAttribute="trailing" constant="15" id="CvL-fy-tWU"/>
+                                        <constraint firstAttribute="bottom" secondItem="bz1-dn-Fss" secondAttribute="bottom" constant="10" id="QGW-Sv-bjo"/>
+                                        <constraint firstItem="bz1-dn-Fss" firstAttribute="leading" secondItem="Pad-cX-p4H" secondAttribute="trailing" constant="15" id="RAb-01-FDs"/>
+                                        <constraint firstItem="Pad-cX-p4H" firstAttribute="leading" secondItem="2pS-NW-YQ5" secondAttribute="leading" constant="15" id="hbI-Y8-Mf0"/>
+                                        <constraint firstItem="bz1-dn-Fss" firstAttribute="top" secondItem="2pS-NW-YQ5" secondAttribute="top" constant="10" id="jTA-q6-RMQ"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="buttonCheck" destination="Pad-cX-p4H" id="bJH-c7-B3A"/>
+                                    <outlet property="subItemLabel" destination="ALU-p1-jdF" id="GjJ-q1-RCk"/>
+                                    <outlet property="taskNameLabel" destination="ZMO-ga-dIl" id="fce-Ie-0PP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -55,7 +90,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qp3-GI-5uc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="489.85507246376818" y="73.660714285714278"/>
+            <point key="canvasLocation" x="488.80000000000001" y="73.313343328335833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ofZ-OD-W0s">
@@ -74,4 +109,7 @@
             <point key="canvasLocation" x="-428" y="74"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
