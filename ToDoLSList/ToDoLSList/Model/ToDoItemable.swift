@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol ToDoItemable: class {
+    var nameTask: String { get set }
+    
+    var isCompleted: Bool { get set }
+    
+    var subItems: [ToDoItem] { get set }
+    
+    var subItemsText: String { get }
+    
+}

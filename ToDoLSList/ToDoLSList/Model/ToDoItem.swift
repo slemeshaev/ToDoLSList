@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ToDoItem {
+class ToDoItem: ToDoItemable {    
     
     var nameTask: String
     var isCompleted: Bool
